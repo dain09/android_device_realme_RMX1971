@@ -1,0 +1,19 @@
+dontaudit qti_init_shell self:capability { dac_override dac_read_search };
+allow qti_init_shell configfs:dir { add_name create write };
+allow qti_init_shell configfs:file create;
+allow qti_init_shell configfs:lnk_file create;
+allow qti_init_shell persist_file:lnk_file read;
+allow qti_init_shell sensors_persist_file:fifo_file { getattr setattr };
+allow qti_init_shell proc_devinfo:dir search;
+allow qti_init_shell proc_devinfo:file { getattr open read };
+
+get_prop(qti_init_shell, oppo_debug_prop);
+
+allow qti_init_shell sysfs_led_file:file { getattr setattr };
+allow qti_init_shell sysfs_lcd_file:file { getattr setattr };
+allow qti_init_shell ctl_start_prop:property_service set;
+allow qti_init_shell ctl_stop_prop:property_service set;
+allow qti_init_shell { sysfs sysfs_dm }:file write;
+allow qti_init_shell proc_page_cluster:file rw_file_perms;
+allow qti_init_shell proc_watermark_scale_factor:file w_file_perms;
+allow qti_init_shell sysfs_leds:file setattr;

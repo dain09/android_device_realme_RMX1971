@@ -1,0 +1,93 @@
+# Wlan
+vendor.wlan.  u:object_r:vendor_wifi_prop:s0
+wifi.active.interface              u:object_r:wifi_hal_prop:s0
+
+# Oppo Audio props
+persist.oppo.mm.pcmdump                 u:object_r:vendor_audio_prop:s0
+sys.oppo.mm.record.type                 u:object_r:vendor_audio_prop:s0
+sys.oppo.mm.voice.record                u:object_r:vendor_audio_prop:s0
+ro.audio.subtype                        u:object_r:vendor_audio_prop:s0
+
+# Oppo FP props
+persist.vendor.fingerprint.             u:object_r:oppo_fingerprint_prop:s0
+oppo.optical.             u:object_r:oppo_fingerprint_prop:s0
+vendor.fingerprint.optical.             u:object_r:oppo_fingerprint_prop:s0
+oppo.fingerprint.gf.package.version             u:object_r:oppo_fingerprint_prop:s0
+ro.separate.soft             u:object_r:oppo_fingerprint_prop:s0
+oppo.fpc.sw.version		u:object_r:oppo_fingerprint_prop:s0
+oppo.fingerprint.                       u:object_r:oppo_fingerprint_prop:s0
+oppo.fingerprint.qrcode.support			u:object_r:oppo_fingerprint_prop:s0
+oppo.fingerprint.qrcode.value			u:object_r:oppo_fingerprint_prop:s0
+vendor.fingerprint.				u:object_r:oppo_fingerprint_prop:s0
+oplus.fingerprint.				u:object_r:oppo_fingerprint_prop:s0
+
+# Camera
+vendor.oppo.camera.                  u:object_r:vendor_camera_prop:s0
+oppo.camera.                  u:object_r:vendor_camera_prop:s0
+persist.front.skipdisplay.enable                  u:object_r:vendor_camera_prop:s0
+persist.aec.manual.mode                  u:object_r:vendor_camera_prop:s0
+persist.camera.                  u:object_r:vendor_camera_prop:s0
+ro.camera.                  u:object_r:vendor_camera_prop:s0
+persist.oppo.camera.                 u:object_r:vendor_camera_prop:s0
+oppo.switch.video.beauty				u:object_r:vendor_camera_prop:s0
+persist.bps.debug				u:object_r:vendor_camera_prop:s0
+
+# Radio props
+gsm.operator.numeric              u:object_r:radio_prop:s0
+
+# Oppo debug props
+persist.ipe.debug                  u:object_r:oppo_debug_prop:s0
+persist.sys.oppo                  u:object_r:oppo_debug_prop:s0
+persist.sys.assert.                  u:object_r:oppo_debug_prop:s0
+ro.build.flavor                  u:object_r:oppo_debug_prop:s0
+ro.oppo.                  u:object_r:oppo_debug_prop:s0
+persist.sys.log.                 u:object_r:oppo_debug_prop:s0
+sys.oppo_ftm_mode                  u:object_r:oppo_debug_prop:s0
+sys.oppo.bsp.drm.widevine.info     u:object_r:oppo_debug_prop:s0
+oppo.tof.             u:object_r:oppo_debug_prop:s0
+persist.serial.enable             u:object_r:oppo_debug_prop:s0
+ro.sys.reserve.integrate             u:object_r:oppo_debug_prop:s0
+ro.vendor.aware_available             u:object_r:oppo_debug_prop:s0
+sys.build.display.full_id             u:object_r:oppo_debug_prop:s0
+ro.rf_version             u:object_r:oppo_debug_prop:s0
+persist.oppo.nw.region.lock             u:object_r:oppo_debug_prop:s0
+persist.oppo.network.operator             u:object_r:oppo_debug_prop:s0
+oppo.device.imeicache             u:object_r:oppo_debug_prop:s0
+sys.oppo.network.rffeature             u:object_r:oppo_debug_prop:s0
+oppo.fingerprint.factory             u:object_r:oppo_debug_prop:s0
+persist.console.silent.config             u:object_r:oppo_debug_prop:s0
+
+# Oppo wlan prop
+persist.oppo.wlan.            u:object_r:oppo_wlan_prop:s0
+oppo.wifi.            u:object_r:oppo_wlan_prop:s0
+
+# Thermal
+vendor.thermal.config                   u:object_r:vendor_thermal_prop:s0
+
+# Audio
+audio.volume.listener.dump                      u:object_r:vendor_audio_prop:s0
+audio.volume.headset.gain.depcal                u:object_r:vendor_audio_prop:s0
+audio_hal.in_period_size                        u:object_r:vendor_audio_prop:s0
+audio_hal.period_multiplier                     u:object_r:vendor_audio_prop:s0
+audio_hal.period_size                           u:object_r:vendor_audio_prop:s0
+persist.audio.dualmic.config                    u:object_r:vendor_audio_prop:s0
+
+# Oppo
+ro.bluetooth.ftm_enabled             u:object_r:oppo_debug_prop:s0
+persist.env.fastdorm.enabled                  u:object_r:oppo_debug_prop:s0
+ro.data.large_tcp_window_size                  u:object_r:oppo_debug_prop:s0
+crypto.driver.load                  u:object_r:oppo_debug_prop:s0
+drmdiag.load                  u:object_r:oppo_debug_prop:s0
+init.svc.wpa_supplicant                  u:object_r:oppo_debug_prop:s0
+persist.ims.regmanager.mode                  u:object_r:oppo_debug_prop:s0
+oppo.wifirftest.enable                  u:object_r:oppo_debug_prop:s0
+persist.usb.hvdcp.detect                  u:object_r:oppo_debug_prop:s0
+ro.oppo.nw.singlecard                  u:object_r:oppo_debug_prop:s0
+ro.logdumpd.enabled                  u:object_r:oppo_debug_prop:s0
+oppo.eng.factory.no			u:object_r:oppo_debug_prop:s0
+zeroth.debuglog.logmask                  u:object_r:oppo_debug_prop:s0
+ro.build.display.full_id                  u:object_r:oppo_debug_prop:s0
+vendor.vold.serialno                  u:object_r:oppo_debug_prop:s0
+ro.build.version.ota                  u:object_r:oppo_debug_prop:s0
+ro.vendor.ril.svlte1x		      u:object_r:oppo_debug_prop:s0
+ro.vendor.ril.svdo		      u:object_r:oppo_debug_prop:s0
