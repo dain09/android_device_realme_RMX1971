@@ -36,7 +36,7 @@ $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_RMX1971)
 # Soong namespaces for HALs and other modules
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
-    hardware/qcom-caf/sdm710 \
+    hardware/qcom-caf/sdm845 \
     vendor/qcom/opensource/usb/etc \
     hardware/lineage/interfaces/power-libperfmgr
 
