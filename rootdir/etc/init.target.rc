@@ -1,9 +1,32 @@
-#
 # Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
-# Heavily tweaked and organized for RMX1971.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
 #
 
-# --- Filesystem & Early Boot ---
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
@@ -16,7 +39,7 @@ on fs
 on post-fs
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
-    # Enable IPA hardware acceleration
+
     write /dev/ipa 1
 
 on late-fs
@@ -25,31 +48,42 @@ on late-fs
 on post-fs-data
     mkdir /data/vendor/nnhal 0700 system system
 
-
-# --- Boot-time Permissions & Properties ---
 on boot
-    # Regionalization permissions
-    chmod 0644 /persist/speccfg/spec
-    chown system system /persist/speccfg/spec
-    # ... (other chmod/chown for speccfg can be kept if needed)
-
-    # USB controller configuration
-    setprop vendor.usb.rndis.func.name "gsi"
-    setprop vendor.usb.rmnet.func.name "gsi"
-    setprop vendor.usb.rmnet.inst.name "rmnet"
-
-    # Notification LED permissions
-    chown system system /sys/class/leds/red/blink
-    chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/blue/blink
-
-    # Start core Qualcomm services
     start rmt_storage
     start rfs_access
 
+    ####Regionalization config and prop files####
+    chmod 0644 /persist/speccfg/spec
+    chmod 0644 /persist/speccfg/devicetype
+    chmod 0644 /persist/speccfg/mbnversion
+    chmod 0644 /persist/speccfg/.not_triggered
+    chmod 0644 /persist/speccfg/vendor_ro.prop
+    chmod 0644 /persist/speccfg/vendor_persist.prop
+    chmod 0644 /persist/speccfg/submask
+    chmod 0644 /persist/speccfg/partition
+    chown system system /persist/speccfg/spec
+    chown system system /persist/speccfg/devicetype
+    chown system system /persist/speccfg/mbnversion
+    chown system system /persist/speccfg/.not_triggered
+    chown system system /persist/speccfg/vendor_ro.prop
+    chown system system /persist/speccfg/vendor_persist.prop
+    chown system system /persist/speccfg/submask
+    chown system system /persist/speccfg/partition
 
-# --- Core HALs & Services ---
-# Peripheral Manager
+#USB controller configuration
+    setprop vendor.usb.rndis.func.name "gsi"
+    setprop vendor.usb.rmnet.func.name "gsi"
+    setprop vendor.usb.rmnet.inst.name "rmnet"
+    setprop vendor.usb.dpl.inst.name "dpl"
+    setprop vendor.usb.qdss.inst.name "qdss"
+
+#pd-mapper
+service vendor.pd_mapper /vendor/bin/pd-mapper
+    class core
+    user system
+    group system
+
+#Peripheral manager
 service vendor.per_mgr /vendor/bin/pm-service
     class core
     user system
@@ -68,21 +102,23 @@ on property:init.svc.vendor.per_mgr=running
 on property:sys.shutdown.requested=*
     stop vendor.per_proxy
 
-# PD Mapper
-service vendor.pd_mapper /vendor/bin/pd-mapper
-    class core
-    user system
-    group system
+on boot
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/green/blink
+    chown system system /sys/class/leds/blue/blink
 
-# Thermal Engine
+on charger
+    start vendor.power_off_alarm
+
 service thermal-engine /system/vendor/bin/thermal-engine
    class main
    user root
-   group root
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
+   socket thermal-recv-passive-client stream 0666 system system
+   socket thermal-send-rule stream 0660 system system
+   group root
 
-# Post-processing Daemon
 service ppd /vendor/bin/mm-pp-dpps
     class late_start
     user system
@@ -90,42 +126,31 @@ service ppd /vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     disabled
 
-on property:init.svc.vendor.hwcomposer-2-3=running
-    start ppd
-on property:init.svc.zygote=running
-    start ppd
-
 on property:init.svc.vendor.hwcomposer-2-3=stopped
     stop ppd
+
+on property:init.svc.vendor.hwcomposer-2-3=running
+    start ppd
+
+on property:init.svc.vendor.hwcomposer-2-3=restarting
+    stop ppd
+
+#ifdef VENDOR_EDIT
+#Rongchun.zhang@PSW.MM.Display.feature, 2018/11/09, Add for restart ppd aftern FDE
 on property:init.svc.zygote=stopped
     stop ppd
 
+on property:init.svc.zygote=running
+    start ppd
 
-# --- Charger Mode ---
-on charger
-    start vendor.power_off_alarm
+on property:init.svc.zygote=restarting
+    stop ppd
+#endif/*VENDOR_EDIT*/
 
-
-#========================================
-# Performance & Kernel Tweaks
-# This section executes after the phone has fully booted.
-#========================================
-on property:sys.boot_completed=1
-    # --- CPU Governor Tweaks ---
-    # Set governor to 'schedutil' for a modern balance of
-    # performance on-demand and battery saving at idle.
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "schedutil"
-
-    # --- I/O Scheduler Tweaks ---
-    # Set the I/O scheduler to 'mq-deadline' for better read/write performance,
-    # leading to faster app launches and a snappier UI.
-    write /sys/block/sda/queue/scheduler "mq-deadline"
-    write /sys/block/sdb/queue/scheduler "mq-deadline"
-    write /sys/block/sdc/queue/scheduler "mq-deadline"
-    write /sys/block/sdd/queue/scheduler "mq-deadline"
-
-    # --- Network Tweaks ---
-    # Set TCP Congestion Algorithm to 'westwood' for better performance
-    # on wireless and lossy networks.
-    write /proc/sys/net/ipv4/tcp_congestion_control "westwood"
+service vendor.contexthub-hal-1-0 /vendor/bin/hw/android.hardware.contexthub@1.0-service
+    override
+    class hal
+    interface android.hardware.contexthub@1.0::IContexthub default
+    user system
+    group system
+    disabled
