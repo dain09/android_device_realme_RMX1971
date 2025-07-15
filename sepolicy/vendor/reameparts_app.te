@@ -1,0 +1,30 @@
+#
+# Dedicated policy for the RealmeParts application.
+# This app is allowed to control specific hardware settings.
+#
+
+type reameparts_app, domain;
+app_domain(reameparts_app)
+
+# Allow RealmeParts to write to hardware control files.
+allow reameparts_app sysfs_scharge:file rw_file_perms;
+allow reameparts_app sysfs_usb_supply:file rw_file_perms;
+allow reameparts_app sysfs_oppo_display:file rw_file_perms;
+allow reameparts_app proc_kcal_file:file rw_file_perms;
+allow reameparts_app proc_kcal_file:dir search;
+allow reameparts_app sysfs_leds:dir search;
+allow reameparts_app sysfs_leds:lnk_file rw_file_perms;
+allow reameparts_app {
+    sysfs_hgain
+    sysfs_mgain
+    proc_vibration_file
+}:file rw_file_perms;
+allow reameparts_app proc_vibration_file:dir search;
+
+# Grant access to touchpanel settings.
+# This is a potential fix for multi-touch issues.
+allow reameparts_app proc_touchpanel:file rw_file_perms;
+allow reameparts_app proc_touchpanel:dir search;
+
+# Grant access to FPS Info
+allow reameparts_app sysfs_fps:file rw_file_perms;

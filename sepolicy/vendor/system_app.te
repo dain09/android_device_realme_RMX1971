@@ -1,33 +1,17 @@
+# Permissions for generic system applications.
+# These should be as restrictive as possible.
+
+# Allow searching directories for hardware info.
 allow system_app proc_touchpanel:dir search;
 allow system_app sysfs_usb_supply:dir search;
 allow system_app sysfs_battery_supply:dir search;
-allow system_app sysfs_battery_supply:file { getattr open read };
-allow system_app proc_touchpanel:file { read write open getattr setattr };
-allow system_app vendor_default_prop:file { map getattr };
-get_prop(system_app,oppo_debug_prop)
-
-# FPS Info
-allow system_app sysfs_fps:file rw_file_perms;
-
-# Battery Health
-r_dir_file(system_app, sysfs_battery_supply);
-
-# Realme Parts
-allow system_app sysfs_scharge:file { getattr open read write };
-allow system_app sysfs_usb_supply:file { getattr open read write };
 allow system_app sysfs_oppo_display:dir search;
-allow system_app sysfs_oppo_display:file { getattr open read write };
-allow system_app proc_vmallocinfo:file r_file_perms;
-allow system_app proc_pagetypeinfo:file r_file_perms;
-allow system_app sysfs_zram:dir search;
-allow system_app sysfs_zram:file r_file_perms;
-allow system_app proc_kcal_file:file { getattr open read write };
-allow system_app proc_kcal_file:dir search;
-allow system_app {
-    sysfs_hgain
-    sysfs_mgain
-    proc_vibration_file
-}:file rw_file_perms;
-allow system_app sysfs_leds:dir search;
-allow system_app proc_vibration_file:dir search;
-allow system_app sysfs_leds:lnk_file { getattr open read write };
+
+# Allow reading properties and files for information display.
+get_prop(system_app, oppo_debug_prop)
+allow system_app vendor_default_prop:file { map getattr };
+r_dir_file(system_app, sysfs_battery_supply)
+r_dir_file(system_app, sysfs_fps)
+r_dir_file(system_app, proc_vmallocinfo)
+r_dir_file(system_app, proc_pagetypeinfo)
+r_dir_file(system_app, sysfs_zram)
