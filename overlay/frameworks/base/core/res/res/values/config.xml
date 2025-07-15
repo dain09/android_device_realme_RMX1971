@@ -11,6 +11,8 @@
     <!-- ========================= -->
     <!--     UX & Feature Tweaks   -->
     <!-- ========================= -->
+    <!-- TWEAK: Enable linear brightness slider for smoother control -->
+    <bool name="config_linearBrightness">true</bool>
 
     <!-- TWEAK: Always use volume keys to control media volume -->
     <bool name="config_audio_use_volume_key_for_media">true</bool>
