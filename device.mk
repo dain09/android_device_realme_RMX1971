@@ -71,9 +71,15 @@ PRODUCT_PACKAGES += \
     libvolumelistener \
     tinymix
 
-# TWEAK: Add Dolby Atmos packages. This brings Dolby to life!
+# Path to local Dolby blobs
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/vendor/dolby/DolbySound/DolbySound.apk:$(TARGET_COPY_OUT_PRODUCT)/priv-app/DolbySound/DolbySound.apk \
+    $(LOCAL_PATH)/vendor/dolby/DolbySound/lib/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib/libswdap.so \
+    $(LOCAL_PATH)/vendor/dolby/DolbySound/lib64/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libswdap.so \
+    $(LOCAL_PATH)/vendor/dolby/DolbySound/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
+
 PRODUCT_PACKAGES += \
-    DaxUI \
+    DolbySound \
     libswdap
 
 # --- Biometrics ---
