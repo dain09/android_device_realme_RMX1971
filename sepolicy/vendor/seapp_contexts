@@ -1,1 +1,10 @@
+#
+# SEApp Contexts for RMX1971
+# Links applications to their specific SELinux domains.
+#
+
+# Qualcomm Data Services
 user=radio seinfo=platform name=.qtidataservices domain=qtidataservices_app type=radio_data_file
+
+# CRITICAL: Link RealmeParts to its dedicated hardware control domain.
+user=_app seinfo=platform name=org.device.Realmeparts domain=reameparts_app type=app_data_file
