@@ -120,10 +120,21 @@ system_ext/priv-app/WfdService/WfdService.apk
 #========================================
 
 # --- CRITICAL: Dolby Atmos Blobs ---
+# Ensure these files are extracted for Dolby Atmos functionality.
 vendor/app/DaxUI/DaxUI.apk
 vendor/lib/libswdap.so
 vendor/lib64/libswdap.so
 vendor/etc/dolby/dax-default.xml
+
+# ACDB (Audio Calibration Data)
+odm/etc/acdbdata/Bluetooth_cal.acdb
+odm/etc/acdbdata/General_cal.acdb
+odm/etc/acdbdata/Global_cal.acdb
+odm/etc/acdbdata/Handset_cal.acdb
+odm/etc/acdbdata/Hdmi_cal.acdb
+odm/etc/acdbdata/Headset_cal.acdb
+odm/etc/acdbdata/Speaker_cal.acdb
+vendor/etc/acdbdata/adsp_avs_config.acdb
 
 # ADSP (Audio DSP)
 vendor/bin/adsprpcd
@@ -140,16 +151,26 @@ vendor/lib64/libmdsprpc.so
 vendor/lib64/libsdsprpc.so
 
 # ADSP Modules
+odm/lib/libbsproxy.so
+odm/lib64/libbsproxy.so
+system_ext/lib/rfsa/adsp/libaiboost_skel.so
+system_ext/lib/rfsa/adsp/libaiboost_skel_v65.so
+system_ext/lib/rfsa/adsp/libaiboost_skel_v66.so
 vendor/lib/rfsa/adsp/capi_v2_aptX_Classic.so
 vendor/lib/rfsa/adsp/capi_v2_aptX_HD.so
 vendor/lib/rfsa/adsp/libVC1Dec.so
+vendor/lib/rfsa/adsp/libVC1DecDsp_skel.so
 vendor/lib/rfsa/adsp/libVDHexagonBlurless_skel.so
 vendor/lib/rfsa/adsp/libVDHexagonBlurless_v2_skel.so
 vendor/lib/rfsa/adsp/libVDHexagonSuperPhoto_skel.so
 vendor/lib/rfsa/adsp/libapps_mem_heap.so
+vendor/lib/rfsa/adsp/libarcsoft_dualcam_refocus_skel.so
+vendor/lib/rfsa/adsp/libarcsoft_hdrplus_hvx_skel.so
+vendor/lib/rfsa/adsp/libarcsoft_portraitSN_hvx_skel.so
 vendor/lib/rfsa/adsp/libc++.so.1
 vendor/lib/rfsa/adsp/libc++abi.so.1
 vendor/lib/rfsa/adsp/libcamera_nn_skel.so
+vendor/lib/rfsa/adsp/libdepthmap_skel.so
 vendor/lib/rfsa/adsp/libdspCV_skel.so
 vendor/lib/rfsa/adsp/libfastcvadsp.so
 vendor/lib/rfsa/adsp/libfastcvdsp_skel.so
@@ -174,7 +195,15 @@ vendor/lib64/rfsa/adsp/libdsp_streamer_skel.so
 vendor/lib64/rfsa/adsp/libsns_device_mode_skel.so
 vendor/lib64/rfsa/adsp/libsns_low_lat_stream_skel.so
 
-# Audio
+# Audio HAL & Modules
+odm/lib/libaudioEngineerTest.so
+vendor/lib/hw/audio.primary.sdm710.so;FIX_SONAME
+vendor/lib/libaudio_log_utils.so
+vendor/lib/soundfx/libasphere.so
+vendor/lib/soundfx/libqcbassboost.so
+vendor/lib/soundfx/libqcreverb.so
+vendor/lib/soundfx/libqcvirt.so
+vendor/lib/soundfx/libshoebox.so
 vendor/lib/hw/sound_trigger.primary.sdm710.so
 vendor/lib/libacdb-fts.so
 vendor/lib/libacdbloader.so
@@ -188,13 +217,9 @@ vendor/lib/libqtigef.so
 vendor/lib/libssrec.so
 vendor/lib/libsurround_3mic_proc.so
 vendor/lib/libtinycompress.so
-vendor/lib/hw/audio.primary.sdm710.so;FIX_SONAME
-vendor/lib/libaudio_log_utils.so
-vendor/lib/soundfx/libasphere.so
-vendor/lib/soundfx/libqcbassboost.so
-vendor/lib/soundfx/libqcreverb.so
-vendor/lib/soundfx/libqcvirt.so
-vendor/lib/soundfx/libshoebox.so
+
+# Audio Firmware
+odm/firmware/tfa98xx.cnt
 
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
@@ -211,6 +236,21 @@ vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
 
 # Camera
+odm/etc/camera/singleblur/Charming.cng
+odm/etc/camera/singleblur/M_Verify_Faster_Common_wp.model
+odm/etc/camera/singleblur/doubleloss_large.model
+odm/etc/camera/singleblur/faceTpl0.rgb32
+odm/etc/camera/singleblur/faceTpl1.rgb32
+odm/etc/camera/singleblur/gasryuv.model
+odm/etc/camera/singleblur/merged_model
+odm/etc/camera/singleblur/merged_model_post
+odm/etc/camera/oppo_camera_config.xml
+odm/etc/camera/stereoParams.bin
+odm/lib64/libavutil.so
+odm/lib64/libormshalclient.so
+odm/lib64/libswresample.so
+odm/lib64/libswscale.so
+odm/lib64/vendor.oplus.hardware.orms@1.0.so
 vendor/etc/camera/Charming.cng
 vendor/etc/camera/M_Attribute_Gender_Age_1.0.model
 vendor/etc/camera/M_Verify_Faster_Common_4.0.0_wp.model
@@ -970,10 +1010,10 @@ vendor/etc/sensors/config/sdm710_lsm6dso_0.json
 vendor/etc/sensors/config/sdm710_power_0.json
 vendor/etc/sensors/config/sdm710_shtw2_0.json
 vendor/etc/sensors/config/sdm710_stk2x2x_0.json
-vendor/etc/sensors/config/sdm710_stk2x3x_0.json
-vendor/etc/sensors/config/sdm710_stk3x3x_0.json
-vendor/etc/sensors/config/sdm710_sx932x_0.json
-vendor/etc/sensors/config/sdm710_tsl2540_0.json
+vendor/etc/sensors/config/stk2x3x_09.json
+vendor/etc/sensors/config/stk3x3x_0.json
+vendor/etc/sensors/config/sx932x_0.json
+vendor/etc/sensors/config/tsl2540_0.json
 vendor/etc/sensors/config/shtw2_0.json
 vendor/etc/sensors/config/sns_amd.json
 vendor/etc/sensors/config/sns_amd_sw_disabled.json
@@ -1010,7 +1050,7 @@ vendor/etc/sensors/config/sns_tilt_sw_enabled.json
 vendor/etc/sensors/config/sns_tilt_to_wake.json
 vendor/etc/sensors/config/sns_wrist_pedo.json
 vendor/etc/sensors/config/stk2x2x_0.json
-vendor/etc/sensors/config/stk2x3x_09.json
+vendor/etc/sensors/config/stk2x3x_0.9.json
 vendor/etc/sensors/config/stk3x3x_0.json
 vendor/etc/sensors/config/sx932x_0.json
 vendor/etc/sensors/config/tsl2540_0.json
@@ -1018,6 +1058,8 @@ vendor/etc/sensors/hals.conf
 vendor/etc/sensors/sns_reg_config
 
 # Sensors
+odm/lib/oplus.sensors.ssc.so
+odm/lib64/oplus.sensors.ssc.so
 vendor/bin/init.qcom.sensors.sh
 vendor/bin/sensors.qti
 vendor/etc/init/init.vendor.sensors.rc
@@ -1053,7 +1095,6 @@ vendor/lib/libscveCommon_stub.so
 vendor/lib/libscveObjectSegmentation.so
 vendor/lib/libscveObjectSegmentation_stub.so
 vendor/lib/libscveObjectTracker.so
-vendor/lib/libscveObjectSegmentation_stub.so
 vendor/lib/libscveObjectTracker_stub.so
 vendor/lib64/libfastcvdsp_stub.so
 vendor/lib64/libfastcvopt.so
