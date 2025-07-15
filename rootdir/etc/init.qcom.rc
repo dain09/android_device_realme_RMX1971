@@ -141,14 +141,14 @@ on property:sys.boot_completed=1
     # Re-initialize LMKD with new properties
     setprop lmkd.reinit 1
 
-    # --- I/O Scheduler Tweak ---
-    # Set the I/O scheduler to 'mq-deadline' for better read/write performance.
-    write /sys/block/dm-0/queue/scheduler "mq-deadline"
-    write /sys/block/dm-1/queue/scheduler "mq-deadline"
+     # --- I/O Scheduler Tweak ---
+    # TWEAK: Set the default I/O scheduler to Maple for better performance.
+    write /sys/block/sda/queue/scheduler "maple"
+    write /sys/block/sdb/queue/scheduler "maple"
 
     # --- Network Tweak ---
-    # Set TCP Congestion Algorithm to 'westwood' for better performance.
-    write /proc/sys/net/ipv4/tcp_congestion_control "westwood"
+    # TWEAK: Set the default TCP Congestion Control to BBR for higher throughput.
+    write /proc/sys/net/ipv4/tcp_congestion_control "bbr"
 
     # Restrict permissions to socket file to hide Magisk & co.
     chmod 440 /proc/net/unix
