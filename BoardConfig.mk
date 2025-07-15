@@ -38,12 +38,14 @@ TARGET_KERNEL_SOURCE := kernel/realme/sdm710
 TARGET_KERNEL_CONFIG := sdm670-perf_defconfig
 
 # Kernel Build Tools
-TARGET_KERNEL_CLANG_VERSION := r498229b
+# Reverted to Clang 13 for better compatibility with the existing kernel source.
+TARGET_KERNEL_CLANG_VERSION := r416183b
 TARGET_KERNEL_CLANG_PATH := prebuilts/clang/host/linux-x86/clang-$(TARGET_KERNEL_CLANG_VERSION)
 TARGET_KERNEL_ADDITIONAL_FLAGS := LLVM=1 LLVM_IAS=1
 
 # Kernel ThinLTO
-TARGET_KERNEL_THINLTO := true
+# Disabled ThinLTO as it might not be fully supported with this kernel/toolchain combo.
+TARGET_KERNEL_THINLTO := false
 
 BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xA90000
 BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom androidboot.console=ttyMSM0
