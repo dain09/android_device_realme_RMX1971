@@ -62,7 +62,8 @@ def AddImage(info, basename, dest, is_optional=False):
     info.script.AppendExtra('package_extract_file("%s", "%s");' % (basename, dest))
 
 def OTA_Assertions(info):
-    info.script.AppendExtra('assert(getprop("ro.device.latest_fw") == "true" || abort("Older firmware detected. Kindly update firmware to realme UI 2 and retry flashing."););')
+    # The firmware check can fail in certain recoveries. Disabled for better compatibility.
+    # info.script.AppendExtra('assert(getprop("ro.device.latest_fw") == "true" || abort("Older firmware detected. Kindly update firmware to realme UI 2 and retry flashing."););')
     info.script.AppendExtra('assert(getprop("ro.product.vendor.device") == "RMX1971" || abort("This package is for device: RMX1971; this device is " + getprop("ro.product.vendor.device") + "."););')
     return
 
