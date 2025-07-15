@@ -119,13 +119,6 @@ system_ext/priv-app/WfdService/WfdService.apk
 # Vendor Partition (vendor)
 #========================================
 
-# --- CRITICAL: Dolby Atmos Blobs ---
-# Ensure these files are extracted for Dolby Atmos functionality.
-vendor/app/DaxUI/DaxUI.apk
-vendor/lib/libswdap.so
-vendor/lib64/libswdap.so
-vendor/etc/dolby/dax-default.xml
-
 # ACDB (Audio Calibration Data)
 odm/etc/acdbdata/Bluetooth_cal.acdb
 odm/etc/acdbdata/General_cal.acdb
@@ -159,7 +152,6 @@ system_ext/lib/rfsa/adsp/libaiboost_skel_v66.so
 vendor/lib/rfsa/adsp/capi_v2_aptX_Classic.so
 vendor/lib/rfsa/adsp/capi_v2_aptX_HD.so
 vendor/lib/rfsa/adsp/libVC1Dec.so
-vendor/lib/rfsa/adsp/libVC1DecDsp_skel.so
 vendor/lib/rfsa/adsp/libVDHexagonBlurless_skel.so
 vendor/lib/rfsa/adsp/libVDHexagonBlurless_v2_skel.so
 vendor/lib/rfsa/adsp/libVDHexagonSuperPhoto_skel.so
