@@ -7,9 +7,9 @@
 # UI Speed & Animation Tweaks
 #========================================
 # Disable animations by default for a snappy UI. User can re-enable in developer options.
-debug.transition.animation_scale=0
-debug.animator.duration_scale=0
-debug.window.animation_scale=0
+debug.transition.animation_scale=0.5
+debug.animator.duration_scale=0.5
+debug.window.animation_scale=0.5
 
 # Allow screen rotation in all 4 angles by default
 ro.surface_flinger.rotation=0
