@@ -39,7 +39,7 @@ TARGET_KERNEL_CONFIG := sdm670-perf_defconfig
 
 # Kernel Build Tools
 # Reverted to Clang 13 for better compatibility with the existing kernel source.
-TARGET_KERNEL_CLANG_VERSION := r416183b
+TARGET_KERNEL_CLANG_VERSION := proton-clang
 TARGET_KERNEL_CLANG_PATH := prebuilts/clang/host/linux-x86/clang-$(TARGET_KERNEL_CLANG_VERSION)
 TARGET_KERNEL_ADDITIONAL_FLAGS := LLVM=1 LLVM_IAS=1
 
