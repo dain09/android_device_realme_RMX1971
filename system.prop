@@ -168,5 +168,3 @@ ro.support_one_handed_mode=true
 ro.vendor.qti.va_aosp.support=1
 persist.rcs.supported=1
 persist.sys.oscar.dc=1
-persist.sys.wfd.virtual=0
-persist.debug.wfd.enable=1

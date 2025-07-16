@@ -54,8 +54,6 @@
     <hidden-api-whitelisted-app package="com.qualcomm.qti.telephonyservice" />
     <hidden-api-whitelisted-app package="com.qualcomm.qti.uim" />
     <hidden-api-whitelisted-app package="com.qualcomm.simcontacts" />
-    <hidden-api-whitelisted-app package="com.qualcomm.wfd.client" />
-    <hidden-api-whitelisted-app package="com.qualcomm.wfd.service" />
     <hidden-api-whitelisted-app package="org.codeaurora.bluetooth" />
     <hidden-api-whitelisted-app package="org.codeaurora.dialer" />
     <hidden-api-whitelisted-app package="org.codeaurora.ims" />

@@ -81,8 +81,8 @@
     <bool name="config_device_wfc_ims_available">true</bool>
 
     <!-- Wi-Fi Display -->
-    <bool name="config_enableWifiDisplay">true</bool>
-    <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
+    <bool name="config_enableWifiDisplay">false</bool>
+    <bool name="config_wifiDisplaySupportsProtectedBuffers">false</bool>
 
     <!-- Mobile TCP Buffers (kept from original) -->
     <string-array name="config_mobile_tcp_buffers">
