@@ -131,3 +131,7 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 # --- Device Specific ---
 TARGET_OTA_ASSERT_DEVICE := RMX1971,RMX1971CN
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
+
+# Suppress incompatible-function-pointer-types error for QCOM audio libs
+TARGET_CFLAGS_libspkrprot := -Wno-incompatible-function-pointer-types
+TARGET_CFLAGS_libcirrusspkrprot := -Wno-incompatible-function-pointer-types
