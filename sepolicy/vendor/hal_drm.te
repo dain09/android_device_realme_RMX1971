@@ -1,14 +1,12 @@
-# SELinux rules for HAL DRM (Widevine)
+###############################################
+# SELinux Policy — HAL DRM (Widevine)
+# Maintainer: Abdallah Ibrahim <D_ai_n@telegram>
+###############################################
 
-#type hal_drm, domain;
-type hal_drm_exec, exec_type, file_type;
+# Define executable type for HAL DRM service
+#type hal_drm_widevine_exec, exec_type, file_type, vendor_file_type;
 
-# Allow basic file access
+# Allow only safe firmware file access
 allow hal_drm firmware_file:file { read getattr open };
 
-# Optional (حسب الحاجة):
-# allow hal_drm sysfs:file { read open getattr };
-# allow hal_drm self:process { execmem };  # لو كان مطلوب للتنفيذ
-
-# Note:
-# intentionally excluded 'watch' and 'watch_reads' to pass neverallow check
+# ───────────────────────────────────────────────────────────────────────

@@ -242,5 +242,11 @@ PRODUCT_COPY_FILES += \
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-lineage
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+# Exclude QCOM hal_drm policies to avoid neverallow conflicts
+BOARD_SEPOLICY_EXCLUDE += \
+    device/qcom/sepolicy-legacy-um/legacy/vendor/common/hal_drm.te \
+    device/qcom/sepolicy_vndr/legacy-um/legacy/vendor/common/hal_drm.te
+    
 # We are enforcing RRO targets for all packages
 PRODUCT_ENFORCE_RRO_TARGETS := *
+
