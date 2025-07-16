@@ -131,3 +131,9 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 # --- Device Specific ---
 TARGET_OTA_ASSERT_DEVICE := RMX1971,RMX1971CN
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
+
+# Exclude conflicting QCOM sepolicy rules for hal_drm
+BOARD_SEPOLICY_EXCLUDE :=
+BOARD_SEPOLICY_EXCLUDE += \
+    device/qcom/sepolicy-legacy-um/legacy/vendor/common/hal_drm.te \
+    device/qcom/sepolicy_vndr/legacy-um/legacy/vendor/common/hal_drm.te
