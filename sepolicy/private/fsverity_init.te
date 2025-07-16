@@ -1,1 +1,3 @@
+type fsverity_init, domain, mlstrustedsubject;
+
 allow fsverity_init self:capability sys_admin;
