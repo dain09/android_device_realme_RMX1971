@@ -5,8 +5,6 @@ soong_namespace {
         "hardware/google/pixel",
         "hardware/lineage/interfaces/power-libperfmgr",
         "hardware/qcom-caf/common/libqti-perfd-client",
-        // CRITICAL FIX: Add QCOM WLAN namespace for hostapd
-        "hardware/qcom-caf/wlan",
     ],
 }
 
