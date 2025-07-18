@@ -1,9 +1,6 @@
 #
 # Copyright (C) 2018-2024 The LineageOS Project
-#
 # SPDX-License-Identifier: Apache-2.0
-#
-# Core device configuration for Realme 5 Pro (RMX1971)
 #
 
 #========================================
@@ -26,7 +23,6 @@ $(call inherit-product, vendor/realme/RMX1971/RMX1971-vendor.mk)
 # Inherit from common Qualcomm CAF configurations
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
-
 #========================================
 # Soong & Build System Configs
 #========================================
@@ -36,9 +32,14 @@ $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_RMX1971)
 # Soong namespaces for HALs and other modules
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
-    hardware/qcom-caf/sdm845 \
+    bootable/deprecated-ota \
     vendor/qcom/opensource/usb/etc \
-    hardware/lineage/interfaces/power-libperfmgr
+    hardware/qcom-caf/sdm845 \
+    hardware/google/interfaces \
+    hardware/google/pixel \
+    hardware/lineage/interfaces/power-libperfmgr \
+    hardware/qcom-caf/common/libqti-perfd-client \
+    hardware/nxp
 
 # Dexpreopt configuration for faster boot
 PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := verify
@@ -47,7 +48,7 @@ PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/boot/boot-imag
 
 # Disable APEX compression for some devices
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
-
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
 
 #========================================
 # Packages - Device Features & HALs
@@ -65,22 +66,27 @@ PRODUCT_PACKAGES += \
     audio.usbv2.default \
     audio.bluetooth.default \
     android.hardware.bluetooth.audio-impl \
+    libaudio-resampler \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libvolumelistener \
+    libcirrusspkrprot \
+    libspkrprot \
+    libhdmiedid \
+    liba2dpoffload \
+    libexthwplugin \
+    libhfp \
+    libbatterylistener \
+    libsndmonitor \
     tinymix
 
-# CRITICAL: Path to local Dolby blobs - Corrected paths based on your screenshots.
+# --- Dolby Atmos (Prebuilt) ---
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vendor/dolby/DolbySound/DolbySound.apk:$(TARGET_COPY_OUT_PRODUCT)/priv-app/DolbySound/DolbySound.apk \
-    $(LOCAL_PATH)/vendor/dolby/proprietary/vendor/lib/soundfx/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib/libswdap.so \
-    $(LOCAL_PATH)/vendor/dolby/proprietary/vendor/lib64/soundfx/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libswdap.so \
-    $(LOCAL_PATH)/vendor/dolby/configs/dax/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
-
-PRODUCT_PACKAGES += \
-    DolbySound \
-    libswdap
+    $(LOCAL_PATH)/dolby/priv-app/DaxUI/DaxUI.apk:$(TARGET_COPY_OUT_PRODUCT)/priv-app/DaxUI/DaxUI.apk \
+    $(LOCAL_PATH)/dolby/lib/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib/libswdap.so \
+    $(LOCAL_PATH)/dolby/lib64/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libswdap.so \
+    $(LOCAL_PATH)/dolby/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
 
 # --- Biometrics ---
 PRODUCT_PACKAGES += android.hardware.biometrics.fingerprint@2.1-service.RMX1971
@@ -94,11 +100,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-service \
     android.hardware.graphics.mapper@2.0-impl-qti-display \
-    vendor.qti.hardware.display.allocator@1.0-service \
     gralloc.sdm710 \
     hwcomposer.qcom \
     libvulkan \
-    vendor.qti.hardware.memtrack-service
+    vendor.qti.hardware.memtrack-service \
+    vendor.qti.hardware.display.allocator@1.0-service
 
 # --- DRM ---
 PRODUCT_PACKAGES += android.hardware.drm-service.clearkey
@@ -132,12 +138,23 @@ PRODUCT_PACKAGES += android.hardware.sensors@2.0-service.multihal.RMX1971
 
 # --- Telephony ---
 PRODUCT_PACKAGES += \
+    extphonelib \
+    extphonelib-product \
+    extphonelib.xml \
+    extphonelib_product.xml \
     ims-ext-common \
+    ims_ext_common.xml \
     qti-telephony-hidl-wrapper \
     qti_telephony_hidl_wrapper.xml \
+    qti-telephony-hidl-wrapper-prd \
+    qti_telephony_hidl_wrapper_prd.xml \
     qti-telephony-utils \
     qti_telephony_utils.xml \
+    qti-telephony-utils-prd \
+    qti_telephony_utils_prd.xml \
     telephony-ext
+
+PRODUCT_BOOT_JARS += telephony-ext
 
 # --- Thermal ---
 PRODUCT_PACKAGES += android.hardware.thermal-service.qti
@@ -154,6 +171,7 @@ PRODUCT_PACKAGES += vendor.qti.hardware.vibrator.service
 PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
     hostapd \
+    libwifi-hal-ctrl \
     libwifi-hal-qcom \
     libwpa_client \
     WifiOverlay \
@@ -163,6 +181,24 @@ PRODUCT_PACKAGES += \
     firmware_WCNSS_qcom_cfg.ini_symlink \
     firmware_wlan_mac.bin_symlink
 
+# --- Ramdisk ---
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    init.RealmeParts.rc \
+    init.oppo.rc \
+    init.oppo.display.rc \
+    init.qcom.early_boot.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.power.rc \
+    init.qti.chg_policy.sh \
+    init.qcom.rc \
+    init.qcom.sh \
+    init.qcom.usb.rc \
+    init.qcom.usb.sh \
+    init.recovery.qcom.rc \
+    init.target.rc \
+    ueventd.qcom.rc \
+    usb_compositions.conf
 
 #========================================
 # Files & Configurations to Copy
@@ -174,73 +210,42 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:$(TARGET_COPY_OUT_ODM)/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/audio/mixer_paths.xml:$(TARGET_COPY_OUT_ODM)/etc/mixer_paths.xml \
+    $(LOCAL_PATH)/audio/audio_policy_configuration_a2dp_offload_disabled.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration_a2dp_offload_disabled.xml \
+    $(LOCAL_PATH)/audio/audio_output_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_output_policy.conf \
+    $(LOCAL_PATH)/audio/usbv2_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usbv2_audio_policy_configuration.xml \
+    $(AUDIO_CONFIG_DIR)/audio_platform_info_intcodec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec.xml \
+    $(AUDIO_CONFIG_DIR)/mixer_paths_i2s.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_i2s.xml \
+    $(AUDIO_CONFIG_DIR)/audio_platform_info_i2s.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_i2s.xml \
+    $(AUDIO_CONFIG_DIR)/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_ODM)/etc/sound_trigger_platform_info.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration_7_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration_7_0.xml \
-    $(AUDIO_CONFIG_DIR)/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_ODM)/etc/sound_trigger_platform_info.xml
-
-# --- Component Overrides ---
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
-
-# --- GPS ---
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \
-    $(LOCAL_PATH)/gps/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf \
-    $(LOCAL_PATH)/gps/izat.conf:$(TARGET_COPY_OUT_VENDOR)/etc/izat.conf \
-    $(LOCAL_PATH)/gps/sap.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sap.conf
-
-# --- Input ---
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/keylayout/gpio-keys.kl:$(TARGET_COPY_OUT_SYSTEM)/usr/keylayout/gpio-keys.kl
+    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml
 
 # --- Media ---
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
     $(LOCAL_PATH)/configs/media/media_profiles_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml \
+    $(LOCAL_PATH)/configs/media/system_properties.xml:$(TARGET_COPY_OUT_VENDOR)/etc/system_properties.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2.xml
 
-# --- Permissions ---
+# --- Permissions & Other Configs ---
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml \
-    frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml \
-    frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml \
-    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \
-    frameworks/native/data/etc/android.hardware.audio.pro.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.pro.xml \
-    frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml \
-    frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-1.xml \
-    frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_1.xml \
-    frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml \
-    $(LOCAL_PATH)/configs/permissions/privapp_whitelist_org.device.Realmeparts.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp_whitelist_org.device.Realmeparts.xml
-
-# --- Power & Thermal ---
-PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml \
     $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json \
-    system/core/libprocessgroup/profiles/cgroups_30.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json \
-    system/core/libprocessgroup/profiles/task_profiles_30.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
-
-# --- Ramdisk ---
-PRODUCT_PACKAGES += \
-    fstab.qcom \
-    init.qcom.rc \
-    init.qcom.sh \
-    init.target.rc \
-    ueventd.qcom.rc
-
-# --- Wi-Fi ---
-PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt \
+    $(LOCAL_PATH)/configs/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/sysconfig/qti_whitelist.xml \
+    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
-
 #========================================
 # Overlays
 #========================================
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-lineage
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay-lineage \
+    $(LOCAL_PATH)/overlay
 
-# We are enforcing RRO targets for all packages
 PRODUCT_ENFORCE_RRO_TARGETS := *
