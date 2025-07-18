@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2018-2024 The LineageOS Project
+#
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -30,11 +31,13 @@ $(call inherit-product, hardware/qcom-caf/common/common.mk)
 $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_RMX1971)
 
 # Soong namespaces for HALs and other modules
+# CRITICAL FIX: Add 'wlan' namespace to resolve hostapd build error.
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     bootable/deprecated-ota \
     vendor/qcom/opensource/usb/etc \
     hardware/qcom-caf/sdm845 \
+    hardware/qcom-caf/wlan \
     hardware/google/interfaces \
     hardware/google/pixel \
     hardware/lineage/interfaces/power-libperfmgr \
@@ -83,10 +86,14 @@ PRODUCT_PACKAGES += \
 
 # --- Dolby Atmos (Prebuilt) ---
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/dolby/priv-app/DaxUI/DaxUI.apk:$(TARGET_COPY_OUT_PRODUCT)/priv-app/DaxUI/DaxUI.apk \
-    $(LOCAL_PATH)/dolby/lib/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib/libswdap.so \
-    $(LOCAL_PATH)/dolby/lib64/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libswdap.so \
-    $(LOCAL_PATH)/dolby/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
+    $(LOCAL_PATH)/vendor/dolby/DolbySound/DolbySound.apk:$(TARGET_COPY_OUT_PRODUCT)/priv-app/DolbySound/DolbySound.apk \
+    $(LOCAL_PATH)/vendor/dolby/proprietary/vendor/lib/soundfx/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib/libswdap.so \
+    $(LOCAL_PATH)/vendor/dolby/proprietary/vendor/lib64/soundfx/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libswdap.so \
+    $(LOCAL_PATH)/vendor/dolby/configs/dax/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
+
+PRODUCT_PACKAGES += \
+    DolbySound \
+    libswdap
 
 # --- Biometrics ---
 PRODUCT_PACKAGES += android.hardware.biometrics.fingerprint@2.1-service.RMX1971
