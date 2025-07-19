@@ -25,7 +25,6 @@ $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Inherit common LineageOS configurations for a full phone experience.
 # This must come AFTER device.mk to allow our device to override common settings.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 
 #========================================
