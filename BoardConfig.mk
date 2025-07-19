@@ -38,9 +38,9 @@ TARGET_KERNEL_SOURCE := kernel/realme/sdm710
 TARGET_KERNEL_CONFIG := sdm670-perf_defconfig
 
 # Kernel Build Tools
-# Reverted to Clang 13 for better compatibility with the existing kernel source.
-TARGET_KERNEL_CLANG_VERSION := proton
-TARGET_KERNEL_CLANG_PATH := $(shell pwd)/prebuilts/clang/host/linux-x86/clang-proton
+# Point to the custom ZyCromerZ Clang 13 toolchain.
+TARGET_KERNEL_CLANG_VERSION := 13.0.1
+TARGET_KERNEL_CLANG_PATH := $(shell pwd)/clang-toolchain
 TARGET_KERNEL_ADDITIONAL_FLAGS := LLVM=1 LLVM_IAS=1
 
 # Kernel ThinLTO
