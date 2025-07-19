@@ -85,6 +85,9 @@ PRODUCT_PACKAGES += \
     libsndmonitor \
     tinymix
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/media/media_codecs_cape_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_cape_vendor.xml
+
 
 # --- Biometrics ---
 PRODUCT_PACKAGES += android.hardware.biometrics.fingerprint@2.1-service.RMX1971
