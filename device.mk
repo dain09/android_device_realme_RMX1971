@@ -84,12 +84,16 @@ PRODUCT_PACKAGES += \
     libsndmonitor \
     tinymix
 
-# --- Dolby Atmos (Prebuilt) ---
+# --- Dolby Atmos (Prebuilt Soong Modules) ---
+# Include the modules defined in our custom Dolby Android.bp
+PRODUCT_PACKAGES += \
+    DolbySound \
+    daxService \
+    libswdap
+
+# Copy the non-module Dolby config file
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vendor/dolby/DolbySound/DolbySound.apk:$(TARGET_COPY_OUT_PRODUCT)/priv-app/DolbySound/DolbySound.apk \
-    $(LOCAL_PATH)/vendor/dolby/proprietary/vendor/lib/soundfx/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib/libswdap.so \
-    $(LOCAL_PATH)/vendor/dolby/proprietary/vendor/lib64/soundfx/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libswdap.so \
-    $(LOCAL_PATH)/vendor/dolby/configs/dax/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
+    $(LOCAL_PATH)/dolby/etc/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
 
 # --- Biometrics ---
 PRODUCT_PACKAGES += android.hardware.biometrics.fingerprint@2.1-service.RMX1971
