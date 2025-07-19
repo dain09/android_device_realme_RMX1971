@@ -15,7 +15,7 @@
 #
 
 # Dolby path
-DOLBY_PATH := hardware/dolby
+DOLBY_PATH := $(LOCAL_PATH)/vendor/dolby
 
 # Soong Namespace
 PRODUCT_SOONG_NAMESPACES += \
