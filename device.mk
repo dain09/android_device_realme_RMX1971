@@ -91,10 +91,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/vendor/dolby/proprietary/vendor/lib64/soundfx/libswdap.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libswdap.so \
     $(LOCAL_PATH)/vendor/dolby/configs/dax/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
 
-PRODUCT_PACKAGES += \
-    DolbySound \
-    libswdap
-
 # --- Biometrics ---
 PRODUCT_PACKAGES += android.hardware.biometrics.fingerprint@2.1-service.RMX1971
 
