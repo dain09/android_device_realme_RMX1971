@@ -23,7 +23,7 @@ $(call inherit-product, vendor/realme/RMX1971/RMX1971-vendor.mk)
 
 # Inherit from common Qualcomm CAF configurations
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
-$(call inherit-product, $(LOCAL_PATH)/vendor/dolby/dolby.mk)
+$(call inherit-product, $(DEVICE_PATH)/vendor/dolby/dolby.mk)
 
 #========================================
 # Soong & Build System Configs
@@ -86,7 +86,7 @@ PRODUCT_PACKAGES += \
     tinymix
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media/media_codecs_cape_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_cape_vendor.xml
+    $(DEVICE_PATH)/configs/media/media_codecs_cape_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_cape_vendor.xml
 
 
 # --- Biometrics ---
