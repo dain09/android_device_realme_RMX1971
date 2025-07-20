@@ -75,7 +75,6 @@ PRODUCT_PACKAGES += \
     libaudio-resampler \
     libqcompostprocbundle \
     libqcomvisualizer \
-    libqcomvoiceprocessing \
     libvolumelistener \
     libcirrusspkrprot \
     libspkrprot \
