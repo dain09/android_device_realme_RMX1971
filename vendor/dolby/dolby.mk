@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+DEVICE_PATH := device/realme/RMX1971
+
 # Dolby path
 DOLBY_PATH := $(DEVICE_PATH)/vendor/dolby
 
