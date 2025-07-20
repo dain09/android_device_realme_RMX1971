@@ -138,3 +138,19 @@ CONFIG_IEEE80211AX := true
 # --- Device Specific ---
 TARGET_OTA_ASSERT_DEVICE := RMX1971,RMX1971CN
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
+
+
+#================================================
+# QCOM Hardware Abstraction Layer (HAL) Variants
+#================================================
+#
+# Force the build system to use the modern CAF HALs for core components.
+TARGET_QCOM_AUDIO_VARIANT := caf
+TARGET_QCOM_DISPLAY_VARIANT := caf
+TARGET_QCOM_MEDIA_VARIANT := caf
+#
+# Disable legacy QCOM VoIP enhancements to prevent build conflicts with
+# the CAF implementation of voice processing libraries.
+BOARD_USES_QCOM_VOIP_ENHANCEMENTS := false
+#
+#================================================
