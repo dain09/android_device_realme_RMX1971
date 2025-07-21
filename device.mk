@@ -9,7 +9,7 @@ DEVICE_PATH := device/realme/RMX1971
 #========================================
 # Platform & Inheritance
 #========================================
-PRODUCT_BOARD_PLATFORM := sdm845
+PRODUCT_BOARD_PLATFORM := sdm710
 PRODUCT_USES_QCOM_HARDWARE := true
 
 # Set product launch API level (Pie)
