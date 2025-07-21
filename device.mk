@@ -73,8 +73,6 @@ PRODUCT_PACKAGES += \
     audio.bluetooth.default \
     android.hardware.bluetooth.audio-impl \
     libaudio-resampler \
-    libqcompostprocbundle \
-    libqcomvisualizer \
     libvolumelistener \
     libcirrusspkrprot \
     libspkrprot \
