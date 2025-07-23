@@ -55,6 +55,9 @@ PRODUCT_PACKAGES += \
     tinymix
 
 $(call inherit-product,  $(LOCAL_PATH)/vendor/dolby/dolby.mk)
+$(call remove-product-packages, libqcomvoiceprocessing)
+$(call inherit-product, hardware/qcom/audio/audio_product.mk)
+PRODUCT_SOONG_NAMESPACES := $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES))
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs_cape_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_cape_vendor.xml
@@ -436,6 +439,3 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
-
-$(call remove-product-packages, libqcomvoiceprocessing)
-PRODUCT_SOONG_NAMESPACES := $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES))
