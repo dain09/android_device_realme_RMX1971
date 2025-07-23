@@ -17,8 +17,6 @@ $(call inherit-product, vendor/realme/RMX1971/RMX1971-vendor.mk)
 
 # Add common definitions for Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
-$(call remove-product-packages, libqcomvoiceprocessing)
-PRODUCT_SOONG_NAMESPACES := $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES))
 
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
@@ -438,3 +436,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+
+$(call remove-product-packages, libqcomvoiceprocessing)
+PRODUCT_SOONG_NAMESPACES := $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES))
