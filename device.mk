@@ -18,6 +18,7 @@ $(call inherit-product, vendor/realme/RMX1971/RMX1971-vendor.mk)
 # Add common definitions for Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 $(call remove-product-packages, libqcomvoiceprocessing)
+PRODUCT_SOONG_NAMESPACES := $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES))
 
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
