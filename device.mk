@@ -32,6 +32,12 @@ PRODUCT_PACKAGES += \
 
 # Audio
 AUDIO_CONFIG_DIR := hardware/qcom-caf/sm8350/audio/configs/sdm710
+AUDIO_HAL_DIR := hardware/qcom-caf/sdm845/audio/hal
+
+# إجبار النظام على استخدام إصدار CAF
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_CAF_AUDIOHAL := true
+TARGET_EXCLUDES_AUDIO_EFFECTS := true
 
 PRODUCT_PACKAGES += \
     android.hardware.audio.service \
@@ -42,8 +48,6 @@ PRODUCT_PACKAGES += \
     audio.usbv2.default \
     libaudio-resampler \
     libqcompostprocbundle \
-    libqcomvisualizer \
-    libvolumelistener \
     libcirrusspkrprot \
     libspkrprot \
     libhdmiedid \
@@ -54,13 +58,20 @@ PRODUCT_PACKAGES += \
     libsndmonitor \
     tinymix
 
-# إجبار النظام على استخدام إصدار CAF
-BOARD_USES_QCOM_HARDWARE := true
-BOARD_USES_CAF_AUDIOHAL := true
+# إزالة المكتبات المكررة والمتعارضة
+$(call remove-product-packages, \
+    libqcomvoiceprocessing \
+    libqcomvisualizer \
+    libvolumelistener \
+)
 
-$(call inherit-product,  $(LOCAL_PATH)/vendor/dolby/dolby.mk)
-$(call remove-product-packages, libqcomvoiceprocessing)
-PRODUCT_SOONG_NAMESPACES := $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES))
+$(call inherit-product, $(LOCAL_PATH)/vendor/dolby/dolby.mk)
+
+# تصفية مساحات Soong
+PRODUCT_SOONG_NAMESPACES := \
+    $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES)) \
+    hardware/qcom-caf/sdm845 \
+    hardware/qcom-caf/sm8350
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs_cape_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_cape_vendor.xml
