@@ -64,12 +64,12 @@ $(call remove-product-packages, \
     libvolumelistener \
 )
 
-$(call inherit-product, $(LOCAL_PATH)/vendor/dolby/dolby.mk)
-
 # تصفية مساحات Soong
 PRODUCT_SOONG_NAMESPACES := \
     $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES)) \
     hardware/qcom-caf/sdm845 \
+
+$(call inherit-product, $(LOCAL_PATH)/vendor/dolby/dolby.mk)
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs_cape_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_cape_vendor.xml
