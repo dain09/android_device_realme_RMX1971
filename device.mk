@@ -31,9 +31,10 @@ PRODUCT_PACKAGES += \
     AntHalService-Soong
 
 # Audio
-AUDIO_CONFIG_DIR := hardware/qcom-caf/sm8350/audio/configs/sdm710
+AUDIO_CONFIG_DIR := hardware/qcom-caf/sdm845/audio/configs/sdm710
+AUDIO_HAL_DIR := hardware/qcom-caf/sdm845/audio/hal
 
-# إجبار النظام على استخدام إصدار CAF
+# Force CAF version
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_CAF_AUDIOHAL := true
 TARGET_EXCLUDES_AUDIO_EFFECTS := true
