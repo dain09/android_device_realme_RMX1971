@@ -32,7 +32,6 @@ PRODUCT_PACKAGES += \
 
 # Audio
 AUDIO_CONFIG_DIR := hardware/qcom-caf/sm8350/audio/configs/sdm710
-AUDIO_HAL_DIR := hardware/qcom-caf/sdm845/audio/hal
 
 # إجبار النظام على استخدام إصدار CAF
 BOARD_USES_QCOM_HARDWARE := true
