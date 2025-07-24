@@ -70,7 +70,6 @@ $(call inherit-product, $(LOCAL_PATH)/vendor/dolby/dolby.mk)
 PRODUCT_SOONG_NAMESPACES := \
     $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES)) \
     hardware/qcom-caf/sdm845 \
-    hardware/qcom-caf/sm8350
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs_cape_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_cape_vendor.xml
