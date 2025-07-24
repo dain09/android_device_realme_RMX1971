@@ -13,6 +13,18 @@ BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
 TARGET_USES_ION := true
 TARGET_LTO_GLOBAL_THIN := true
+# تعطيل voice_processing من QCOM العادي
+TARGET_EXCLUDES_AUDIO_EFFECTS := true
+# استخدم إصدار CAF فقط للصوت
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_CAF_AUDIOHAL := true
+
+# تعطيل تأثيرات الصوت القديمة
+TARGET_EXCLUDES_AUDIO_EFFECTS := true
+
+# تحديد مسار HAL الصوت لاستخدام CAF
+AUDIO_HARDWARE := audio.a2dp.default audio.primary.sdm710 audio.r_submix.default audio.usb.default
+AUDIO_HAL_DIR := hardware/qcom-caf/sdm845/audio/hal
 
 #==============================
 # Architecture
