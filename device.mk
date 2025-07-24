@@ -54,9 +54,12 @@ PRODUCT_PACKAGES += \
     libsndmonitor \
     tinymix
 
+# إجبار النظام على استخدام إصدار CAF
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_CAF_AUDIOHAL := true
+
 $(call inherit-product,  $(LOCAL_PATH)/vendor/dolby/dolby.mk)
 $(call remove-product-packages, libqcomvoiceprocessing)
-$(call inherit-product, hardware/qcom/audio/audio_product.mk)
 PRODUCT_SOONG_NAMESPACES := $(filter-out hardware/qcom/audio,$(PRODUCT_SOONG_NAMESPACES))
 
 PRODUCT_COPY_FILES += \
