@@ -357,10 +357,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libinit_RMX1971.recovery
 
-# Remove Unwanted Packages
-PRODUCT_PACKAGES += \
-    RemovePackages
-
 # Seccomp policy
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
