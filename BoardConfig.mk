@@ -82,8 +82,8 @@ TARGET_KERNEL_CONFIG := sdm670-perf_defconfig
 TARGET_KERNEL_APPEND_DTB := false
 
 # Clang Toolchain
-TARGET_KERNEL_CLANG_VERSION := 13.0.1
-TARGET_KERNEL_CLANG_PATH := $(shell pwd)/clang-toolchain
+TARGET_KERNEL_CLANG_VERSION := proton
+TARGET_KERNEL_CLANG_PATH := $(shell pwd)/prebuilts/clang/host/linux-x86/clang-proton
 TARGET_KERNEL_LLVM_BINUTILS := true
 TARGET_KERNEL_ADDITIONAL_FLAGS += \
     LLVM=1 \
