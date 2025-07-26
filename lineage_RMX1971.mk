@@ -59,4 +59,4 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 # Sign the build with release keys.
 # Make sure you have your keys located at vendor/lineage-priv/keys/releasekey
 # or the build will use the default insecure test keys.
-PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/lineage-priv/keys/releasekey
+#PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/lineage-priv/keys/releasekey
