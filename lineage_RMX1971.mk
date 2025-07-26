@@ -50,8 +50,8 @@ PRODUCT_GMS_CLIENTID_BASE := android-oppo
 # Spoof build fingerprint and description to match the stock firmware.
 # CRITICAL: This helps pass SafetyNet and makes banking/DRM apps work.
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="RMX1971-user 11 RKQ1.201217.002 1623376276806 release-keys" \
-    TARGET_DEVICE=RMX1971
+    BuildDesc="RMX1971-user 11 RKQ1.201217.002 1623376276806 release-keys" \
+    BuildFingerprint=realme/RMX1971/RMX1971:11/RKQ1.201217.002/1623376276806:user/release-keys
 
 #========================================
 # Build Signing
