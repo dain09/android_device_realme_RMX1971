@@ -4,7 +4,6 @@ cc_prebuilt_binary {
     vendor: true,
     compile_multilib: "64",
     relative_install_path: "bin/hw",
-    filename: "vendor.dolby.media.c2@1.0-service",
 }
 
 cc_prebuilt_binary {
@@ -13,5 +12,4 @@ cc_prebuilt_binary {
     vendor: true,
     compile_multilib: "64",
     relative_install_path: "bin/hw",
-    filename: "vendor.dolby.hardware.dms@2.0-service",
 }
